@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Наряды-допуски PRO 5.0</title>
+<style>
+*{box-sizing:border-box}
+:root{--blue:#1769aa;--bg:#eef3f8;--line:#222}
+body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:#111}
+.app{max-width:1500px;margin:auto;padding:18px}
+.topbar{background:#12395a;color:#fff;border-radius:14px;padding:16px 20px;display:flex;gap:16px;align-items:center;justify-content:space-between;box-shadow:0 5px 20px #0002}
+.topbar h1{font-size:21px;margin:0 0 4px}.topbar small{opacity:.8}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+button{border:0;border-radius:9px;padding:10px 14px;cursor:pointer;font-weight:700}
+.btn{background:#fff;color:#12395a}.primary{background:#1d83d4;color:#fff}.danger{background:#d9534f;color:#fff}
+.layout{display:grid;grid-template-columns:330px 1fr;gap:18px;margin-top:18px}
+.panel{background:#fff;border-radius:14px;padding:16px;box-shadow:0 3px 14px #0001}
+.panel h2{font-size:17px;margin:0 0 12px}
+label{display:block;font-size:12px;font-weight:700;margin:9px 0 4px}
+input,textarea,select{width:100%;border:1px solid #b8c2cc;border-radius:7px;padding:8px;font:inherit;background:#fff}
+textarea{min-height:55px;resize:vertical}
+.notice{font-size:12px;color:#555;line-height:1.4;background:#f4f7fa;padding:9px;border-radius:8px;margin-top:12px}
+.document-wrap{overflow:auto}
+.document{background:#fff;width:210mm;min-height:297mm;margin:0 auto 18px;padding:14mm 15mm 13mm;box-shadow:0 3px 18px #0002;font-family:"Times New Roman",serif;font-size:13px;line-height:1.16}
+.doc-head{text-align:right;font-size:11px;margin-bottom:24px}.doc-title{text-align:center;font-weight:700;margin:10px 0 16px}
+.org{text-align:center;font-weight:700;text-decoration:underline;margin-bottom:17px}
+.rowline{margin:8px 0}.under{display:inline-block;border-bottom:1px solid #222;min-width:150px;min-height:17px}
+.section-title{margin:12px 0 5px;font-weight:700}
+.doc-table{width:100%;border-collapse:collapse;margin:7px 0 12px}
+.doc-table th,.doc-table td{border:1px solid #222;padding:5px;vertical-align:top}
+.doc-table th{font-weight:700;text-align:center}
+.small{font-size:11px}.signature{height:34px}
+.page-break{page-break-before:always}
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}}
+@media print{body{background:#fff}.app>.topbar,.layout>.panel{display:none}.app{padding:0}.layout{display:block}.document-wrap{overflow:visible}.document{box-shadow:none;margin:0;width:210mm;min-height:297mm;padding:12mm 14mm}.page-break{page-break-before:always}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar"><div><h1>Наряды-допуски PRO 5.0</h1><small>Электронная форма по образцу предоставленного бланка</small></div><div class="actions"><button class="btn" onclick="saveDraft()">💾 Сохранить</button><button class="btn" onclick="loadDraft()">↩ Загрузить</button><button class="primary" onclick="window.print()">🖨 Печать / PDF</button><button class="danger" onclick="clearForm()">Очистить</button></div></header>
+<div class="layout">
+<aside class="panel"><h2>Заполнение наряда</h2>
+<label>№ наряда-допуска</label><input id="num" value="140">
+<label>Организация, участок, цех</label><textarea id="org">Центр технического обслуживания местных сетей (ЦТО МС) ЛТУ Джангельдинского района</textarea>
+<label>Производитель работ</label><input id="producer" value="Нурпеисов Асет Каирбекович"><label>Должность производителя</label><input id="producerPos" value="инженер ЛТУ">
+<label>Место и краткое содержание работ</label><textarea id="workPlace" placeholder="Введите место, оборудование и содержание работ"></textarea>
+<label>Допускающий к работе</label><input id="admitter" value="Оспанов Естай Турсынбекулы"><label>Ответственный руководитель</label><input id="leader" value="Оспанов Естай Турсынбекулы">
+<h2 style="margin-top:18px">Мероприятия 5.1–5.9</h2>
+<label>5.1 Остановить</label><input id="m51"><label>5.2 Отключить</label><input id="m52"><label>5.3 Установить</label><input id="m53"><label>5.4 Проба воздушной среды</label><input id="m54"><label>5.5 Оградить</label><input id="m55"><label>5.6 Работа на высоте/в колодцах</label><input id="m56" value="использовать предохранительный пояс при проведении работ на высоте, исправную и испытанную лестницу, инструменты и приспособления"><label>5.7 Предупредить</label><input id="m57"><label>5.8 Ж/д пути</label><input id="m58"><label>5.9 Маршруты</label><input id="m59">
+<h2 style="margin-top:18px">Замеры воздуха</h2><div class="mini-grid"><div><label>№ устройства</label><input id="gasDevice"></div><div><label>Время</label><input id="gasTime" type="time"></div></div><label>Результат / группа загазованности</label><input id="gasResult">
+<h2 style="margin-top:18px">Согласование</h2><label>Начальник смены / участка</label><input id="agree1"><label>Должность, ФИО</label><input id="agree2">
+<h2 style="margin-top:18px">Бригада</h2><div id="crewInputs"></div><button class="primary" style="margin-top:8px" onclick="addCrew()">+ Добавить работника</button>
+<div class="notice">Заполняйте электронную форму, затем используйте «Печать / PDF». Поля и таблицы автоматически отражаются в трёхстраничном бланке.</div></aside>
+<main class="document-wrap">
+<section class="document"><div class="doc-head">Приложение 3 к правилам производства работ<br>в условиях повышенной опасности по<br>нарядам-допускам (обязательное)</div><div class="doc-title">Форма наряда-допуска на выполнение работ повышенной опасности</div><div class="org" id="pOrg"></div><div class="doc-title">Наряд-допуск № <span class="under" id="pNum"></span> на выполнение работ повышенной опасности</div>
+<div class="rowline">1. Производитель работ <b id="pProducer"></b> <span id="pProducerPos"></span></div><div class="small">(Ф.И.О. (при его наличии), организация, участок, цех, должность)</div><div class="rowline">2. Допускается к выполнению <span class="under" id="pWorkPlace" style="min-width:470px"></span></div><div class="small">(место работы, наименование оборудования, краткое содержание и объем работ)</div><div class="rowline">3. Допускающий(ие) к работе <b id="pAdmitter"></b></div><div class="small">(Ф.И.О. (при его наличии), должность)</div><div class="rowline">4. Ответственный руководитель <b id="pLeader"></b></div><div class="small">(Ф.И.О. (при его наличии), должность)</div>
+<div class="section-title">5. Мероприятия для обеспечения безопасности работ:</div><div>5.1. Остановить <span class="under" id="p51" style="min-width:500px"></span></div><div class="small">(место остановки, положение)</div><div>5.2. Отключить <span class="under" id="p52" style="min-width:500px"></span></div><div class="small">(рубильник, задвижку, магистраль и т.д.)</div><div>5.3. Установить <span class="under" id="p53" style="min-width:500px"></span></div><div class="small">(тупики, заглушки, сигнальные лампы и т.д.)</div><div>5.4. Взять пробу для анализа воздушной среды <span class="under" id="p54" style="min-width:300px"></span></div><div class="small">(указать места и результат анализа, группу загазованности)</div>
+<table class="doc-table"><tr><th>№</th><th>№ смотрового устройства</th><th>Подземное сооружение</th><th>Время проведения замеров</th><th>Результаты замеров</th></tr><tr><td>1</td><td id="pGasDevice"></td><td></td><td id="pGasTime"></td><td id="pGasResult"></td></tr></table>
+<div>5.5. Оградить <span class="under" id="p55" style="min-width:500px"></span></div><div class="small">(зону работ, вывесить плакаты)</div><div>5.6. Предусмотреть меры безопасности при работе на высоте и в колодцах — <span id="p56"></span></div><div class="small">(леса, предохранительные пояса, веревки и т.д.)</div><div>5.7. Предупредить <span class="under" id="p57" style="min-width:500px"></span></div><div class="small">(машинистов соседних кранов и кранов смежных пролетов с подписью в вахтенном журнале)</div><div>5.8. Предусмотреть меры безопасности у железнодорожных путей <span class="under" id="p58"></span></div><div class="small">(установить знаки, плакаты, ограждения, тупики и др.)</div><div>5.9. Указать маршруты к месту работы <span class="under" id="p59" style="min-width:430px"></span></div><div class="small">(при необходимости приложить схему)</div></section>
+<section class="document page-break"><div class="section-title">5.10. Дополнительные мероприятия</div><p><b>Производителю работ и членам бригады провести визуальный осмотр инструментов и приспособлений перед началом работ, использовать спецодежду, спецобувь и СИЗ во время работ, проведение целевого инструктажа согласно действующим инструкциям по безопасности и охране труда.</b></p><p>Выдать производителю работ технологическую карту организации труда (название технологической карты), остановить работу при появлении неисправностей, аварийной ситуации и ухудшении погодных условий.</p><div class="rowline">6. Наряд-допуск выдал <b id="pIssued"></b></div><div class="small">(Ф.И.О. (при его наличии), должность, подпись, дата)</div><div class="rowline">7. Мероприятия выполнил(и) <b id="pDone"></b></div><div class="small">(Номер мероприятия; Ф.И.О. (при его наличии), должность, подпись)</div><div class="rowline">8. Согласовано: <span class="under" id="pAgree1" style="min-width:420px"></span></div><div class="small">(начальник смены (участка), Ф.И.О. (при его наличии), подпись)</div><div class="rowline">8.1. <span class="under" id="pAgree2" style="min-width:500px"></span></div><div class="small">(должность, Ф.И.О. (при его наличии), подпись)</div><div class="section-title">9. Допуск к работе</div><p>Мероприятия выполнены, безопасность работ обеспечена, производитель работ с условиями труда ознакомлен и проинструктирован, допуск разрешаю — допускающий к работе <b id="pAdmitter2"></b>.</p><div class="signature"></div><div class="small">(должность, Ф.И.О. (при его наличии), подпись, дата)</div><div class="section-title">10. Принятие рабочего места</div><p>С условиями работы ознакомлен и проинструктирован, подготовку проверил, рабочее место принял — производитель работ <b id="pProducer2"></b>.</p><div class="signature"></div><div class="small">(должность, Ф.И.О. (при его наличии), подпись, дата, время)</div></section>
+<section class="document page-break"><div class="section-title">11. Состав бригады и отметка о прохождении инструктажа</div><table class="doc-table" id="crewTable"><tr><th>№ п.п.</th><th>Дата и время проведения работ</th><th>Ф.И.О. членов бригады</th><th>Профессия</th><th>С условиями работы ознакомлен, инструктаж получил (подпись)</th><th>Инструктаж провел Ф.И.О., подпись</th></tr></table><p>Бригада(ы) в количестве <b id="crewCount">0</b> человек проинструктировал, к работе приступил __________________</p><p>Производитель работ <b id="pProducer3"></b></p><div class="small">(Ф.И.О. (при его наличии), подпись)</div><div class="section-title">12. Продление наряда-допуска</div><table class="doc-table"><tr><th>Дата, время</th><th>Условия не изменились — смену сдал производитель работ<br>Ф.И.О. / Подпись</th><th>Численный состав заступающей бригады</th><th>С условиями работ ознакомлен, смену принял — производитель работ<br>Ф.И.О. / Подпись</th><th>Допуск разрешаю — допускающий к работе<br>Ф.И.О. / Подпись</th></tr><tr><td class="signature"></td><td></td><td></td><td></td><td></td></tr><tr><td class="signature"></td><td></td><td></td><td></td><td></td></tr><tr><td class="signature"></td><td></td><td></td><td></td><td></td></tr></table><div class="section-title">13. Окончание работ</div><p>Работа окончена (____________), рабочее место убрано, персонал с места производства работ выведен.</p><p>Наряд-допуск сдал <b id="pProducer4"></b></p><div class="signature"></div><div class="small">(должность, Ф.И.О. (при его наличии), подпись производителя работ)</div><p>Рабочее место, наряд-допуск принял <b id="pAdmitter3"></b></p><div class="signature"></div><div class="small">(должность, Ф.И.О. (при его наличии), подпись допускающего к работе)</div></section>
+</main></div></div>
+<script>
+const ids=["num","org","producer","producerPos","workPlace","admitter","leader","m51","m52","m53","m54","m55","m56","m57","m58","m59","gasDevice","gasTime","gasResult","agree1","agree2"];
+function val(id){return document.getElementById(id).value||"________________"}
+function sync(){const map={pNum:"num",pOrg:"org",pProducer:"producer",pProducerPos:"producerPos",pWorkPlace:"workPlace",pAdmitter:"admitter",pLeader:"leader",p51:"m51",p52:"m52",p53:"m53",p54:"m54",p55:"m55",p56:"m56",p57:"m57",p58:"m58",p59:"m59",pGasDevice:"gasDevice",pGasTime:"gasTime",pGasResult:"gasResult",pAgree1:"agree1",pAgree2:"agree2"};Object.entries(map).forEach(([out,id])=>document.getElementById(out).textContent=val(id));["pIssued","pDone","pAdmitter2","pAdmitter3"].forEach(id=>document.getElementById(id).textContent=val("admitter"));["pProducer2","pProducer3","pProducer4"].forEach(id=>document.getElementById(id).textContent=val("producer")+" — "+val("producerPos"));document.getElementById("crewCount").textContent=document.querySelectorAll(".crew").length;buildCrewTable()}
+ids.forEach(id=>document.getElementById(id).addEventListener("input",sync));
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function addCrew(data={}){const box=document.getElementById("crewInputs"),n=box.querySelectorAll(".crew").length+1,div=document.createElement("div");div.className="crew panel";div.style.padding="8px";div.style.marginBottom="8px";div.innerHTML=`<b>Работник ${n}</b><button type="button" class="danger" style="float:right;padding:5px 8px" onclick="this.parentElement.remove();sync()">×</button><label>Ф.И.О.</label><input class="c-name" value="${esc(data.name||"")}"><label>Профессия</label><input class="c-prof" value="${esc(data.prof||"")}"><div class="mini-grid"><div><label>Дата</label><input class="c-date" type="date" value="${data.date||""}"></div><div><label>Время</label><input class="c-time" type="time" value="${data.time||""}"></div></div><label>Инструктаж получил / подпись</label><input class="c-sign" value="${esc(data.sign||"")}">`;box.appendChild(div);div.querySelectorAll("input").forEach(x=>x.addEventListener("input",sync));sync()}
+function buildCrewTable(){const table=document.getElementById("crewTable");while(table.rows.length>1)table.deleteRow(1);document.querySelectorAll(".crew").forEach((c,i)=>{const r=table.insertRow(),name=c.querySelector(".c-name").value||"________________",prof=c.querySelector(".c-prof").value||"________________",date=c.querySelector(".c-date").value||"________",time=c.querySelector(".c-time").value||"____",sign=c.querySelector(".c-sign").value||"________________";r.innerHTML=`<td>${i+1}</td><td>${date}<br>${time}</td><td>${esc(name)}</td><td>${esc(prof)}</td><td>${esc(sign)}</td><td>${val("admitter")}</td>`})}
+function collect(){const data={fields:{}};ids.forEach(id=>data.fields[id]=document.getElementById(id).value);data.crew=[...document.querySelectorAll(".crew")].map(c=>({name:c.querySelector(".c-name").value,prof:c.querySelector(".c-prof").value,date:c.querySelector(".c-date").value,time:c.querySelector(".c-time").value,sign:c.querySelector(".c-sign").value}));return data}
+function saveDraft(){localStorage.setItem("permitPro5",JSON.stringify(collect()));alert("Черновик сохранён в браузере.")}
+function loadDraft(){const d=JSON.parse(localStorage.getItem("permitPro5")||"null");if(!d){alert("Сохранённых данных нет.");return}ids.forEach(id=>{if(d.fields[id]!==undefined)document.getElementById(id).value=d.fields[id]});document.getElementById("crewInputs").innerHTML="";(d.crew||[]).forEach(addCrew);sync();alert("Черновик загружен.")}
+function clearForm(){if(!confirm("Очистить форму?"))return;ids.forEach(id=>document.getElementById(id).value="");document.getElementById("crewInputs").innerHTML="";sync()}
+addCrew({name:"Нурпеисов Асет Каирбекович",prof:"Инженер ЛТУ"});addCrew({name:"Султанбек Кайрат Куаншылы",prof:"Электромонтер 5 разряда"});sync();
+</script>
+</body>
+</html>
